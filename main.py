@@ -1,6 +1,7 @@
 # Ruben Sanduleac
 
 import tkinter
+import pandas
 # --------------------------------- UI -----------------
 #TODO: user tkinter to build the mainscreen
 #TODO: implement the canvas --> where the word and the definition will be placed on the
