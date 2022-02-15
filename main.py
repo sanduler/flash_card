@@ -1,8 +1,9 @@
 # Ruben Sanduleac
 
 import tkinter
+import pandas
+import random
 # --------------------------------- UI -----------------
-# TODO: user tkinter to build the mainscreen
 # TODO: implement the canvas --> where the word and the definition will be placed on the
 # TODO: implement the X icon on the mainscreen that the user can click on --> they didnt get it right
 # TODO: the x will keep the word/definition in the stack
@@ -13,8 +14,8 @@ import tkinter
 
 BACKGROUND_COLOR = "#B1DDC6"
 WINDOW_NAME = "The Flash"
-TIMER = None
-reps = 0
+DATA_WORDS = pandas.read_csv("data/french_words.csv")
+learn_words = DATA_WORDS.to_dict(orient="records")
 
 # def start_timer():
 #     """This function is responsible for
@@ -50,6 +51,11 @@ reps = 0
 #         canvas.create_image(420, 270, image=back_image)
 #         canvas.grid(column=0, row=0, columnspan=2)
 
+def new_word():
+    current_word = random.choice(learn_words)
+    french_word = (current_word["French"])
+    canvas.itemconfig(title_text, text="French")
+    canvas.itemconfig(word_text, text=french_word)
 # generate a window using the tkinter class
 window = tkinter.Tk()
 # change the name of the window
@@ -67,18 +73,13 @@ canvas.grid(column=0, row=0, columnspan=2)
 title_text = canvas.create_text(400, 150, text="Title", font=("Ariel", 40, "italic"))
 word_text = canvas.create_text(400, 263, text="Word", font=("Ariel", 60, "bold"))
 right_image = tkinter.PhotoImage(file="./img/right.png")
-right_button = tkinter.Button(image=right_image, highlightthickness=0, bd=0)
+right_button = tkinter.Button(image=right_image, highlightthickness=0, bd=0, command=new_word)
 right_button.grid(column=0, row=1)
 wrong_image = tkinter.PhotoImage(file="./img/wrong.png")
-wrong_button = tkinter.Button(image=wrong_image)
+wrong_button = tkinter.Button(image=wrong_image, command=new_word)
 wrong_button.config(highlightthickness=0, bd=0)
 wrong_button.grid(column=1, row=1)
-#
-# title_label = tkinter.Label()
-# title_label.config((font="Arial", 40, "italic"))
-# word_label = tkinter.Label()
-
-
+new_word()
 # center the window upon opening
 window.eval('tk::PlaceWindow . center')
 # loop the main window to stay open
