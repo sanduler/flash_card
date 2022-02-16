@@ -80,6 +80,7 @@ wrong_button = tkinter.Button(image=wrong_image, command=new_word)
 wrong_button.config(highlightthickness=0, bd=0)
 wrong_button.grid(column=1, row=1)
 new_word()
+# center the word
 # center the window upon opening
 window.eval('tk::PlaceWindow . center')
 # loop the main window to stay open
