@@ -3,6 +3,7 @@
 import tkinter
 import pandas
 import random
+
 # --------------------------------- UI -----------------
 # TODO: implement the canvas --> where the word and the definition will be placed on the
 # TODO: implement the X icon on the mainscreen that the user can click on --> they didnt get it right
@@ -50,18 +51,30 @@ learn_words = DATA_WORDS.to_dict(orient="records")
 #         back_image = tkinter.PhotoImage(file="./img/card_back.png")
 #         canvas.create_image(420, 270, image=back_image)
 #         canvas.grid(column=0, row=0, columnspan=2)
+CURRENT_CARDS = {}
+
+
+def flip_card():
+    canvas.itemconfig(title_text, text="English")
+    canvas.itemconfig(word_text, text=CURRENT_CARDS["English"])
+
 
 def new_word():
-    current_word = random.choice(learn_words)
-    french_word = (current_word["French"])
+    global CURRENT_CARDS
+    CURRENT_CARDS = random.choice(learn_words)
+    french_word = (CURRENT_CARDS["French"])
     canvas.itemconfig(title_text, text="French")
     canvas.itemconfig(word_text, text=french_word)
+
+
 # generate a window using the tkinter class
 window = tkinter.Tk()
 # change the name of the window
 window.title(WINDOW_NAME)
 # set the size of the padding between canvas and the windows
 window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
+
+window.after(4000, func=flip_card)
 # window.geometry("800x526")
 canvas = tkinter.Canvas(width=850, height=530)
 flash_image = tkinter.PhotoImage(file="./img/card_front.png")
