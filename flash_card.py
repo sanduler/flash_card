@@ -18,7 +18,7 @@ except FileNotFoundError:
 else:
     LEARN_WORDS = DATA_WORDS.to_dict(orient="records")
 
-
+#this function flips the card
 def flip_card():
     canvas.itemconfig(title_text, text="English", fill="white")
     canvas.itemconfig(word_text, text=CURRENT_CARDS["English"])
